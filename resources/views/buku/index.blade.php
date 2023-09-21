@@ -26,7 +26,15 @@
                 <td>{{ $buku->penulis }}</td>
                 <td>{{ "Rp ". number_format($buku->harga, 2, ',', '.') }}</td>
                 <td>{{ Carbon::parse($buku->tgl_terbit)->format('d/m/Y') }}</td>
-                <td><a href="#" id="edit">Edit</a> | <a href="#" id="delete">Delete</a></td>
+                <td>
+                    <form action="{{ route('buku.edit', $buku->id) }}" method="GET">
+                        <button id="edit">Edit</button>
+                    </form>
+                    <form action="{{ route('buku.destroy', $buku->id) }}" method="POST">
+                        @csrf
+                        <button onclick="return confirm('Apakah anda ingin menghapus buku ini?')" id="delete">Delete</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>
@@ -56,16 +64,20 @@
                 <td>{{ $buku->penulis }}</td>
                 <td>{{ "Rp ". number_format($buku->harga, 2, ',', '.') }}</td>
                 <td>{{ Carbon::parse($buku->tgl_terbit)->format('d/m/Y') }}</td>
-                <td><a href="#" id="edit">Edit</a> | <a href="#" id="delete">Delete</a></td>
+                <td>
+                    <form action="{{ route('buku.edit', $buku->id) }}" method="GET">
+                        <button id="edit">Edit</button>
+                    </form>
+                    <form action="{{ route('buku.destroy', $buku->id) }}" method="POST">
+                        @csrf
+                        <button onclick="return confirm('Apakah anda ingin menghapus buku ini?')" id="delete">Delete</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    <h3>
-        Tugas Praktikum
-    </h3>
-        <p>
-            Ada {{ $count_data }} data dalam tabel Buku <br>
-            Harga total dari {{ $count_data }} buah buku di atas adalah Rp {{ $sum_harga }}
-        </p>
+
+    <a class="btn btn-info" href="{{ route('buku.create') }}">Tambahkan Buku Baru</a>
+
 @endsection

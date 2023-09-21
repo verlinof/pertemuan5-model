@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
-use App\Http\Requests\StoreBukuRequest;
-use App\Http\Requests\UpdateBukuRequest;
+use Illuminate\Http\Request;
 
 class BukuController extends Controller
 {
@@ -16,9 +15,7 @@ class BukuController extends Controller
         return view('buku.index',[
             'data_buku' => Buku::all(),
             'data_buku_sort' => Buku::all()->sortByDesc('id'),
-            'count_data' => Buku::all()->count(),
-            'sum_harga' => Buku::all()->sum('harga'),
-            'no' => 0
+            'no' => 1
         ]);
     }
 
@@ -27,15 +24,21 @@ class BukuController extends Controller
      */
     public function create()
     {
-        //
+        return view('buku.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBukuRequest $request)
+    public function store(Request $request)
     {
-        //
+        $buku = new Buku();
+        $buku->judul = $request->judul;
+        $buku->penulis = $request->penulis;
+        $buku->harga = $request->harga;
+        $buku->tgl_terbit = $request->tgl_terbit;
+        $buku->save();
+        return redirect('/');
     }
 
     /**
@@ -51,22 +54,27 @@ class BukuController extends Controller
      */
     public function edit(Buku $buku)
     {
-        //
+        return view('buku.edit', [
+            'buku' => $buku
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBukuRequest $request, Buku $buku)
+    public function update(Request $request, Buku $buku)
     {
-        //
+        $buku->update($request->all());
+        return redirect('/');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Buku $buku)
+    public function destroy($id)
     {
-        //
+        $buku = Buku::findOrFail($id);
+        $buku->delete();
+        return redirect('/');
     }
 }
