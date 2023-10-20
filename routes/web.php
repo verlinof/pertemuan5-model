@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [BukuController::class, 'index']);
+Route::get('/', [BukuController::class, 'index'])->name('buku.index');
 
 Route::get('/buku/create', [BukuController::class, 'create'])->name('buku.create');
 
 Route::post('/buku/store', [BukuController::class, 'store'])->name('buku.store');
+
+Route::get('/buku/search', [BukuController::class, 'search'])->name('buku.search');
 
 Route::post('/buku/delete/{id}', [BukuController::class, 'destroy'])->name('buku.destroy');
 

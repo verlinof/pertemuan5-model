@@ -17,4 +17,5 @@ class Buku extends Model
         'harga',
         'tgl_terbit'
     ];
+
 }

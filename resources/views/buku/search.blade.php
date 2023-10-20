@@ -1,13 +1,10 @@
 @extends('main')
+
 @section('root')
-    @php
-        use Carbon\Carbon;
-    @endphp
 
 <div class="w-full">
     <div class="m-5">
-        <form action="{{ route('buku.search') }}" method="GET">
-            @csrf 
+        <form action="{{ route('buku.search') }}" method="GET">   
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
             <div class="relative">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -21,16 +18,6 @@
         </form>
     </div>
 </div>
-
-    @if (Session::has('pesan'))
-    <div class="w-full">
-        <div class="m-3">
-            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-300" role="alert">
-                <span class="font-medium">{{ Session::get('pesan') }}</span>
-            </div>
-        </div>
-    </div>
-    @endif
 
 <div class="w-full">
     <div class="m-3 relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -85,22 +72,9 @@
         </table>    
     </div>
 </div>
-
-<div class="w-full">
-    <div class="justify-center content-center mx-5 flex items-center">
-        <span class="flex content-around">{{ $data_buku->links() }}</span>
-    </div>
+<div class="py-3">
+    <a class="m-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" href="{{ route('buku.index') }}">
+        Kembali
+    </a>
 </div>
-
-<div class="m-5 font-semibold">Jumlah Buku : {{ $jumlah_buku }}</div>
-
-<a class="m-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" href="{{ route('buku.create') }}">
-    Tambahkan Buku Baru
-</a>
-
-<a class="m-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" href="{{ route('buku.search') }}">
-    Cari Buku
-</a>
-
-
 @endsection
